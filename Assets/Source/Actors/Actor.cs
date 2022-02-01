@@ -1,5 +1,6 @@
 ﻿using DungeonCrawl.Core;
 using DungeonCrawl.Actors.Items;
+using DungeonCrawl.Actors.Characters;
 using UnityEngine;
 
 namespace DungeonCrawl.Actors
@@ -52,10 +53,10 @@ namespace DungeonCrawl.Actors
                 if (actorAtTargetPosition.OnCollision(this))
                 {
                     Position = targetPosition;
-                    if(actorAtTargetPosition is HealthPack)
+                    if(actorAtTargetPosition is Item)
                     {
-                        actorAtTargetPosition._position.x = 99;
-                        actorAtTargetPosition._position.y = 99;
+                        // need to reach player's inventory to add Item
+                        ActorManager.Singleton.DestroyActor(actorAtTargetPosition);
                     }
                 }
             }

@@ -9,9 +9,9 @@ namespace DungeonCrawl.Actors.Characters
     {
         public Player()
         {
-            Inventory = new Dictionary<Item, int>();
+            Inventory = new List<Item>();
+            MedsCount = 0;
         }
-
         protected override void OnUpdate(float deltaTime)
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -41,14 +41,11 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                
+                //pick up item method
             }
         }
 
-        public override bool OnCollision(Actor anotherActor)
-        {
-            return false;
-        }
+        public override bool OnCollision(Actor anotherActor) => false;
 
         protected override void OnDeath()
         {
@@ -56,14 +53,14 @@ namespace DungeonCrawl.Actors.Characters
         }
         private void UseMeds()
         {
-            if(MedsCount > 0 && this.Health != 100)
+            if (MedsCount > 0 && this.Health != 100)
             {
                 Health += 20;
                 MedsCount -= 1;
             }
             MedsCount -= 1;
         }
-        public Dictionary<Item, int> Inventory { get; set; }
+        public List<Item> Inventory {get;set;}
         public int MedsCount { get; set; }
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";

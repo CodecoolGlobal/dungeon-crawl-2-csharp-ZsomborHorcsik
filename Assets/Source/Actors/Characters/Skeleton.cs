@@ -4,10 +4,7 @@ namespace DungeonCrawl.Actors.Characters
 {
     public class Skeleton : Character
     {
-        public override bool OnCollision(Actor anotherActor)
-        {
-            return false;
-        }
+        public override bool OnCollision(Actor anotherActor) => false;
 
         protected override void OnDeath()
         {
