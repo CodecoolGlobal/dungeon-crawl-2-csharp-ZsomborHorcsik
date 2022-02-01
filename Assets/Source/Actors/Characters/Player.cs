@@ -29,6 +29,10 @@ namespace DungeonCrawl.Actors.Characters
                 // Move right
                 TryMove(Direction.Right);
             }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                UseMeds();
+            }
         }
 
         public override bool OnCollision(Actor anotherActor)
@@ -40,7 +44,18 @@ namespace DungeonCrawl.Actors.Characters
         {
             Debug.Log("Oh no, I'm dead!");
         }
-
+        private void UseMeds()
+        {
+            if(MedsCount > 0)
+            {
+                if (this.Health != 100)
+                {
+                    Health += 20;
+                    MedsCount -= 1;
+                }
+            }
+        }
+        public int MedsCount;
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
     }

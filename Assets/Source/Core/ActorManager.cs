@@ -3,6 +3,7 @@ using System.Linq;
 using DungeonCrawl.Actors;
 using UnityEngine;
 using UnityEngine.U2D;
+using DungeonCrawl.Actors.Items;
 
 namespace DungeonCrawl.Core
 {
@@ -116,7 +117,6 @@ namespace DungeonCrawl.Core
             component.Position = (x, y);
 
             _allActors.Add(component);
-
             return component;
         }
     }
