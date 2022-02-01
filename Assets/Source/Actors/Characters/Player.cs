@@ -41,6 +41,7 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                
             }
         }
 
@@ -62,8 +63,8 @@ namespace DungeonCrawl.Actors.Characters
             }
             MedsCount -= 1;
         }
-        public Dictionary<Item, int> Inventory;
-        public int MedsCount;
+        public Dictionary<Item, int> Inventory { get; set; }
+        public int MedsCount { get; set; }
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
     }

@@ -1,4 +1,5 @@
 ﻿using DungeonCrawl.Core;
+using DungeonCrawl.Actors.Items;
 using UnityEngine;
 
 namespace DungeonCrawl.Actors
@@ -50,8 +51,12 @@ namespace DungeonCrawl.Actors
             {
                 if (actorAtTargetPosition.OnCollision(this))
                 {
-                    // Allowed to move
                     Position = targetPosition;
+                    if(actorAtTargetPosition is HealthPack)
+                    {
+                        actorAtTargetPosition._position.x = 99;
+                        actorAtTargetPosition._position.y = 99;
+                    }
                 }
             }
         }
