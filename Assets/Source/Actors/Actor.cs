@@ -21,7 +21,6 @@ namespace DungeonCrawl.Actors
         private void Awake()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-
             SetSprite(DefaultSpriteId);
         }
 
