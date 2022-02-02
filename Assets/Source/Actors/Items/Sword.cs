@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DungeonCrawl.Core;
+using DungeonCrawl.Actors.Characters;
 
 namespace DungeonCrawl.Actors.Items
 {

@@ -1,4 +1,5 @@
 ﻿using DungeonCrawl.Core;
+using DungeonCrawl.Actors.Items;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -7,9 +8,9 @@ namespace DungeonCrawl.Actors.Characters
         public int Health { get; set; }
         public int Damage { get; set; }
 
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int damageByEnemy)
         {
-            Health -= damage;
+            Health -= damageByEnemy;
 
             if (Health <= 0)
             {
@@ -26,5 +27,31 @@ namespace DungeonCrawl.Actors.Characters
         ///     All characters are drawn "above" floor etc
         /// </summary>
         public override int Z => -1;
+
+        public void TryMove(Direction direction)
+        {
+            var vector = direction.ToVector();
+            (int x, int y) targetPosition = (Position.x + vector.x, Position.y + vector.y);
+
+            var actorAtTargetPosition = ActorManager.Singleton.GetActorAt(targetPosition);
+
+            if (actorAtTargetPosition == null)
+            {
+                // No obstacle found, just move
+                Position = targetPosition;
+            }
+            else
+            {
+                if (actorAtTargetPosition.OnCollision(this))
+                {
+                    Position = targetPosition;
+                    if (actorAtTargetPosition is Item)
+                    {
+                        // need to reach player's inventory to add Item
+                        ActorManager.Singleton.DestroyActor(actorAtTargetPosition);
+                    }
+                }
+            }
+        }
     }
 }

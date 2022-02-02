@@ -2,6 +2,7 @@
 using DungeonCrawl.Core;
 using DungeonCrawl.Actors.Items;
 using System.Collections.Generic;
+using Assets.Source.Core;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -44,7 +45,7 @@ namespace DungeonCrawl.Actors.Characters
             }
         }
 
-        public override bool OnCollision(Actor anotherActor) => false;
+        public override bool OnCollision(Character anotherActor) => false;
 
         protected override void OnDeath()
         {

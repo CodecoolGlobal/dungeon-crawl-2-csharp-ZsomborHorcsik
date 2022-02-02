@@ -36,26 +36,7 @@ namespace DungeonCrawl.Actors
             _spriteRenderer.sprite = ActorManager.Singleton.GetSprite(id);
         }
 
-        public void TryMove(Direction direction)
-        {
-            var vector = direction.ToVector();
-            (int x, int y) targetPosition = (Position.x + vector.x, Position.y + vector.y);
-
-            var actorAtTargetPosition = ActorManager.Singleton.GetActorAt(targetPosition);
-
-            if (actorAtTargetPosition == null)
-            {
-                // No obstacle found, just move
-                Position = targetPosition;
-            }
-            else
-            {
-                if (actorAtTargetPosition.OnCollision(this))
-                {
-                    Position = targetPosition;
-                }
-            }
-        }
+        
 
         /// <summary>
         ///     Invoked whenever another actor attempts to walk on the same position
@@ -63,7 +44,7 @@ namespace DungeonCrawl.Actors
         /// </summary>
         /// <param name="anotherActor"></param>
         /// <returns>true if actor can walk on this position, false if not</returns>
-        public virtual bool OnCollision(Actor anotherActor)
+        public virtual bool OnCollision(Character anotherActor)
         {
             // All actors are passable by default
             return true;
