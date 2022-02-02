@@ -13,11 +13,8 @@ namespace DungeonCrawl.Actors.Items
         }
         public override void PickUp(Player player, Item healthPack)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                player.inventory.AddItem(gameObject.AddComponent<HealthPack>());
-                ActorManager.Singleton.DestroyActor(healthPack);
-            }
+            player.inventory.AddItem(gameObject.AddComponent<HealthPack>());
+            ActorManager.Singleton.DestroyActor(healthPack);
         }
         public override int DefaultSpriteId => 570;
         public override string DefaultName => "HP";

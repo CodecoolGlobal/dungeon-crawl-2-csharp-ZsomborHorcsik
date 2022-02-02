@@ -13,11 +13,8 @@ namespace DungeonCrawl.Actors.Items
         }
         public override void PickUp(Player player, Item sword)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                player.inventory.AddItem(gameObject.AddComponent<Sword>());
-                ActorManager.Singleton.DestroyActor(sword);
-            }
+            player.inventory.AddItem(gameObject.AddComponent<Sword>());
+            ActorManager.Singleton.DestroyActor(sword);
         }
         public override int DefaultSpriteId => 128;
         public override string DefaultName => "Sword";
