@@ -1,5 +1,6 @@
 ﻿using DungeonCrawl.Core;
 using DungeonCrawl.Actors.Items;
+using System.Collections.Generic;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -7,6 +8,7 @@ namespace DungeonCrawl.Actors.Characters
     {
         public int Health { get; set; }
         public int Damage { get; set; }
+        public List<Item> Inventory;
 
         public void ApplyDamage(int damageByEnemy)
         {
@@ -37,7 +39,6 @@ namespace DungeonCrawl.Actors.Characters
 
             if (actorAtTargetPosition == null)
             {
-                // No obstacle found, just move
                 Position = targetPosition;
             }
             else
@@ -45,11 +46,6 @@ namespace DungeonCrawl.Actors.Characters
                 if (actorAtTargetPosition.OnCollision(this))
                 {
                     Position = targetPosition;
-                    if (actorAtTargetPosition is Item)
-                    {
-                        // need to reach player's inventory to add Item
-                        ActorManager.Singleton.DestroyActor(actorAtTargetPosition);
-                    }
                 }
             }
         }

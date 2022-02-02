@@ -11,6 +11,8 @@ namespace DungeonCrawl.Actors.Characters
         public Player()
         {
             Inventory = new List<Item>();
+            Health = 100;
+            Damage = 30;
         }
         protected override void OnUpdate(float deltaTime)
         {
@@ -63,7 +65,6 @@ namespace DungeonCrawl.Actors.Characters
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
 
-        public List<Item> Inventory;
         public int MedsCount;
     }
 }

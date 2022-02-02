@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using DungeonCrawl.Actors.Items;
 
 namespace DungeonCrawl.Actors.Characters
 {
     public class Skeleton : Character
     {
+        public Skeleton()
+        {
+            Inventory = new List<Item>();
+            Health = 40;
+            Damage = 20;
+        }
         public override bool OnCollision(Character anotherActor)
         {
             this.ApplyDamage(anotherActor.Damage);
