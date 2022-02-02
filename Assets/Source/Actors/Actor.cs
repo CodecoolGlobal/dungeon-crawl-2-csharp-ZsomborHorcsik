@@ -53,11 +53,6 @@ namespace DungeonCrawl.Actors
                 if (actorAtTargetPosition.OnCollision(this))
                 {
                     Position = targetPosition;
-                    if(actorAtTargetPosition is Item)
-                    {
-                        // need to reach player's inventory to add Item
-                        ActorManager.Singleton.DestroyActor(actorAtTargetPosition);
-                    }
                 }
             }
         }

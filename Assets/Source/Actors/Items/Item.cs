@@ -7,5 +7,8 @@ namespace DungeonCrawl.Actors.Items
     public abstract class Item : Actor
     {
         public int Damage { get; private set; }
+        public virtual void Use() 
+        {
+        }
     }
 }
