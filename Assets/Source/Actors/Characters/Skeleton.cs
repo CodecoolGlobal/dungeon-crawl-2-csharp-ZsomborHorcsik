@@ -4,12 +4,35 @@ namespace DungeonCrawl.Actors.Characters
 {
     public class Skeleton : Character
     {
+        private States ActiveState = States.patrol;
+        private enum States
+        {
+            patrol,
+            attack,
+        }
+
+        protected override void OnUpdate(float deltaTime)
+        {
+            switch (ActiveState)
+            {
+                case States.patrol:
+                    if (deltaTime % 10 == 0)
+                    { 
+                        
+                    }
+                    break;
+
+                case States.attack:
+                    break;
+            }
+        }
+        
         public override bool OnCollision(Character anotherActor)
         {
-            this.ApplyDamage(anotherActor.Damage);
-            if (this.Health > 0)
+            ApplyDamage(anotherActor.Damage);
+            if (Health > 0)
             {
-                anotherActor.ApplyDamage(this.Damage);
+                anotherActor.ApplyDamage(Damage);
             }
             return false;
         }

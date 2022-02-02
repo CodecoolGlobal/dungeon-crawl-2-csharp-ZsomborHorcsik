@@ -35,22 +35,10 @@ namespace DungeonCrawl.Actors.Characters
 
             var actorAtTargetPosition = ActorManager.Singleton.GetActorAt(targetPosition);
 
-            if (actorAtTargetPosition == null)
+            if (actorAtTargetPosition == null || actorAtTargetPosition.OnCollision(this))
             {
                 // No obstacle found, just move
                 Position = targetPosition;
-            }
-            else
-            {
-                if (actorAtTargetPosition.OnCollision(this))
-                {
-                    Position = targetPosition;
-                    if (actorAtTargetPosition is Item)
-                    {
-                        // need to reach player's inventory to add Item
-                        ActorManager.Singleton.DestroyActor(actorAtTargetPosition);
-                    }
-                }
             }
         }
     }

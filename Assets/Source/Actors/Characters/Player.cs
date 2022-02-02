@@ -34,7 +34,7 @@ namespace DungeonCrawl.Actors.Characters
             {
                 TryMove(Direction.Right);
             }
-
+            
             if (Input.GetKeyDown(KeyCode.F))
             {
                 UseMeds();
