@@ -6,6 +6,6 @@ namespace DungeonCrawl.Actors.Items
     {
         public int Damage { get; private set; }
 
-        public virtual void PickUp(Character player, Item item) { }
+        public virtual void PickUp(Player player, Item item) { }
     }
 }

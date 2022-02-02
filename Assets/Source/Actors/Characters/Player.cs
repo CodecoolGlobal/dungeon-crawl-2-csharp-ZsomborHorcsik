@@ -1,22 +1,21 @@
 ﻿using UnityEngine;
-using DungeonCrawl.Core;
 using DungeonCrawl.Actors.Items;
 using System.Collections.Generic;
-using Assets.Source.Core;
 
 namespace DungeonCrawl.Actors.Characters
 {
     public class Player : Character
     {
+        public Inventory inventory;
         public Player()
         {
-            Inventory = new List<Item>();
+            inventory = new Inventory();
             Health = 100;
             Damage = 30;
-            MedsCount = 0;
         }
         protected override void OnUpdate(float deltaTime)
         {
+            
             if (Input.GetKeyDown(KeyCode.W))
             {
                 TryMove(Direction.Up);
@@ -39,12 +38,12 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Input.GetKeyDown(KeyCode.H))
             {
-                UseMeds();
+                //UseMeds();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                //pick up item method
+                //pickup item
             }
         }
 
@@ -52,16 +51,19 @@ namespace DungeonCrawl.Actors.Characters
 
         protected override void OnDeath()
         {
-            Debug.Log("Oh no, I'm dead!");
+            Debug.Log("DAAAAAAAAAAAAAAYUM, I'm dead!");
         }
-        private void UseMeds()
+        private void UseMeds(List<Item> playerInventory)
         {
-            if (MedsCount > 0 && this.Health != 100)
+            foreach(var item in playerInventory)
             {
-                Health += 20;
-                MedsCount -= 1;
+                if(item is HealthPack)
+                {
+                    Health += 20;
+                    Destroy(item);
+                    break;
+                }
             }
-            MedsCount -= 1;
         }
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";

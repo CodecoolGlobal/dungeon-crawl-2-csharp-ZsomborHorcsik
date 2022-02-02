@@ -1,4 +1,5 @@
 using DungeonCrawl.Actors.Characters;
+using DungeonCrawl.Core;
 
 namespace DungeonCrawl.Actors.Items
 {
@@ -6,16 +7,13 @@ namespace DungeonCrawl.Actors.Items
     {
         public override bool OnCollision(Character anotherActor)
         {
-            if (anotherActor is Player)
-            {
-                PickUp(anotherActor, this);
-            }
+            PickUp((Player)anotherActor, this);
             return true;
         }
-        public override void PickUp(Character player, Item sword)
+        public override void PickUp(Player player, Item sword)
         {
-            player.Inventory.Add(sword);
-            sword.Position = (99, 99);
+            player.inventory.AddItem(gameObject.AddComponent<Sword>());
+            ActorManager.Singleton.DestroyActor(sword);
         }
         public override int DefaultSpriteId => 128;
         public override string DefaultName => "Sword";

@@ -8,8 +8,6 @@ namespace DungeonCrawl.Actors.Characters
     {
         public int Health { get; set; }
         public int Damage { get; set; }
-        public List<Item> Inventory;
-        public int MedsCount;
 
         public void ApplyDamage(int damageByEnemy)
         {
@@ -17,9 +15,7 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Health <= 0)
             {
-                // Die
                 OnDeath();
-
                 ActorManager.Singleton.DestroyActor(this);
             }
         }

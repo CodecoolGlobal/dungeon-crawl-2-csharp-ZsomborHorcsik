@@ -1,4 +1,5 @@
 using DungeonCrawl.Actors.Characters;
+using DungeonCrawl.Core;
 
 namespace DungeonCrawl.Actors.Items
 {
@@ -6,17 +7,14 @@ namespace DungeonCrawl.Actors.Items
     {
         public override bool OnCollision(Character anotherActor) 
         {
-            if(anotherActor is Player)
-            {
-                PickUp(anotherActor, this);
-                anotherActor.MedsCount += 1;
-            }
+            PickUp((Player)anotherActor, this);
             return true;
         }
-        public override void PickUp(Character player, Item healthPack)
+        public override void PickUp(Player player, Item healthPack)
         {
-            player.Inventory.Add(healthPack);
-            healthPack.Position = (99, 99);
+            player.inventory.AddItem(gameObject.AddComponent<HealthPack>());
+            ActorManager.Singleton.DestroyActor(healthPack);
+
         }
         public override int DefaultSpriteId => 570;
         public override string DefaultName => "HP";

@@ -8,7 +8,6 @@ namespace DungeonCrawl.Actors.Characters
     {
         public Skeleton()
         {
-            Inventory = new List<Item>();
             Health = 40;
             Damage = 20;
         }
