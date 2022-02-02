@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DungeonCrawl.Actors.Items;
+using DungeonCrawl.Core;
 using System.Collections.Generic;
 
 namespace DungeonCrawl.Actors.Characters
@@ -15,7 +16,7 @@ namespace DungeonCrawl.Actors.Characters
         }
         protected override void OnUpdate(float deltaTime)
         {
-            
+            UserInterface.Singleton.SetText($"Health: {this.Health}\nDamage: {this.Damage}", UserInterface.TextPosition.TopLeft);
             if (Input.GetKeyDown(KeyCode.W))
             {
                 TryMove(Direction.Up);
@@ -38,12 +39,12 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Input.GetKeyDown(KeyCode.H))
             {
-                //UseMeds();
+                UseMeds();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                //pickup item
+
             }
         }
 
@@ -53,15 +54,21 @@ namespace DungeonCrawl.Actors.Characters
         {
             Debug.Log("DAAAAAAAAAAAAAAYUM, I'm dead!");
         }
-        private void UseMeds(List<Item> playerInventory)
+        private void UseMeds()
         {
-            foreach(var item in playerInventory)
+            foreach(var item in inventory.itemList)
             {
                 if(item is HealthPack)
                 {
                     Health += 20;
                     Destroy(item);
+                    inventory.itemList.Remove(item);
+                    UserInterface.Singleton.SetText("+20 HP", UserInterface.TextPosition.MiddleLeft);
                     break;
+                }
+                else
+                {
+                    UserInterface.Singleton.SetText("No Meds available!", UserInterface.TextPosition.MiddleLeft);
                 }
             }
         }

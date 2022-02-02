@@ -1,5 +1,6 @@
 using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Core;
+using UnityEngine;
 
 namespace DungeonCrawl.Actors.Items
 {
@@ -12,9 +13,11 @@ namespace DungeonCrawl.Actors.Items
         }
         public override void PickUp(Player player, Item healthPack)
         {
-            player.inventory.AddItem(gameObject.AddComponent<HealthPack>());
-            ActorManager.Singleton.DestroyActor(healthPack);
-
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                player.inventory.AddItem(gameObject.AddComponent<HealthPack>());
+                ActorManager.Singleton.DestroyActor(healthPack);
+            }
         }
         public override int DefaultSpriteId => 570;
         public override string DefaultName => "HP";

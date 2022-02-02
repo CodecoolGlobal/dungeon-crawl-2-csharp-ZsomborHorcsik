@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DungeonCrawl.Actors.Items
 {
     public class Inventory
     {
-        private List<Item> itemList;
+        public List<Item> itemList;
         public Inventory()
         {
             itemList = new List<Item>();

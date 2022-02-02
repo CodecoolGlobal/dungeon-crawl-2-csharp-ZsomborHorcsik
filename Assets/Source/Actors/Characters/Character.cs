@@ -1,6 +1,5 @@
 ﻿using DungeonCrawl.Core;
 using DungeonCrawl.Actors.Items;
-using System.Collections.Generic;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -29,6 +28,7 @@ namespace DungeonCrawl.Actors.Characters
 
         public void TryMove(Direction direction)
         {
+            UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
             var vector = direction.ToVector();
             (int x, int y) targetPosition = (Position.x + vector.x, Position.y + vector.y);
 
@@ -43,6 +43,10 @@ namespace DungeonCrawl.Actors.Characters
                 if (actorAtTargetPosition.OnCollision(this))
                 {
                     Position = targetPosition;
+                    if(actorAtTargetPosition is Item)
+                    {
+                        UserInterface.Singleton.SetText("Press E to pick up", UserInterface.TextPosition.BottomRight);
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Core;
+using UnityEngine;
 
 namespace DungeonCrawl.Actors.Items
 {
@@ -12,8 +13,11 @@ namespace DungeonCrawl.Actors.Items
         }
         public override void PickUp(Player player, Item sword)
         {
-            player.inventory.AddItem(gameObject.AddComponent<Sword>());
-            ActorManager.Singleton.DestroyActor(sword);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                player.inventory.AddItem(gameObject.AddComponent<Sword>());
+                ActorManager.Singleton.DestroyActor(sword);
+            }
         }
         public override int DefaultSpriteId => 128;
         public override string DefaultName => "Sword";
