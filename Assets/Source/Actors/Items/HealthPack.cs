@@ -8,14 +8,9 @@ namespace DungeonCrawl.Actors.Items
     {
         public override bool OnCollision(Character anotherActor) 
         {
-            PickUp((Player)anotherActor, this);
             return true;
         }
-        public override void PickUp(Player player, Item healthPack)
-        {
-            player.inventory.AddItem(gameObject.AddComponent<HealthPack>());
-            ActorManager.Singleton.DestroyActor(healthPack);
-        }
+        public override bool Detectable => true;
         public override int DefaultSpriteId => 570;
         public override string DefaultName => "HP";
     }

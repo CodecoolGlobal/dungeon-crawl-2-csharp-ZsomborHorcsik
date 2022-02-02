@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using DungeonCrawl.Actors.Items;
+using DungeonCrawl.Core;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -23,7 +22,7 @@ namespace DungeonCrawl.Actors.Characters
 
         protected override void OnDeath()
         {
-            Debug.Log("Well, I was already dead anyway...");
+            UserInterface.Singleton.SetText("Player killed SKELETON", UserInterface.TextPosition.TopRight);
         }
 
         public override int DefaultSpriteId => 316;
