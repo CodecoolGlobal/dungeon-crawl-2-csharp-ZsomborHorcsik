@@ -1,5 +1,4 @@
 ﻿using DungeonCrawl.Core;
-using DungeonCrawl.Actors.Items;
 using DungeonCrawl.Actors.Characters;
 using UnityEngine;
 
@@ -16,8 +15,7 @@ namespace DungeonCrawl.Actors
                 transform.position = new Vector3(value.x, value.y, Z);
             }
         }
-
-        private (int x, int y) _position;
+        protected (int x, int y) _position;
         private SpriteRenderer _spriteRenderer;
 
         private void Awake()
@@ -35,8 +33,6 @@ namespace DungeonCrawl.Actors
         {
             _spriteRenderer.sprite = ActorManager.Singleton.GetSprite(id);
         }
-
-        
 
         /// <summary>
         ///     Invoked whenever another actor attempts to walk on the same position

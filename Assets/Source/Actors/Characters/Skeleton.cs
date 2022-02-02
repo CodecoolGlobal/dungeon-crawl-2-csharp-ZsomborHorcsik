@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DungeonCrawl.Core;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -27,6 +28,11 @@ namespace DungeonCrawl.Actors.Characters
             }
         }
         
+        public Skeleton()
+        {
+            Health = 40;
+            Damage = 20;
+        }
         public override bool OnCollision(Character anotherActor)
         {
             ApplyDamage(anotherActor.Damage);
@@ -39,7 +45,7 @@ namespace DungeonCrawl.Actors.Characters
 
         protected override void OnDeath()
         {
-            Debug.Log("Well, I was already dead anyway...");
+            UserInterface.Singleton.SetText("Player killed SKELETON", UserInterface.TextPosition.TopRight);
         }
 
         public override int DefaultSpriteId => 316;

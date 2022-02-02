@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using DungeonCrawl.Actors.Characters;
 
 namespace DungeonCrawl.Actors.Items
 {
     public abstract class Item : Actor
     {
-        public int Damage { get; private set; }
     }
 }

@@ -14,9 +14,7 @@ namespace DungeonCrawl.Actors.Characters
 
             if (Health <= 0)
             {
-                // Die
                 OnDeath();
-
                 ActorManager.Singleton.DestroyActor(this);
             }
         }
@@ -30,6 +28,7 @@ namespace DungeonCrawl.Actors.Characters
 
         public void TryMove(Direction direction)
         {
+            UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
             var vector = direction.ToVector();
             (int x, int y) targetPosition = (Position.x + vector.x, Position.y + vector.y);
 
@@ -37,8 +36,18 @@ namespace DungeonCrawl.Actors.Characters
 
             if (actorAtTargetPosition == null || actorAtTargetPosition.OnCollision(this))
             {
-                // No obstacle found, just move
                 Position = targetPosition;
+            }
+            else
+            {
+                if (actorAtTargetPosition.OnCollision(this))
+                {
+                    Position = targetPosition;
+                    if(actorAtTargetPosition is Item)
+                    {
+                        UserInterface.Singleton.SetText("Press E to pick up", UserInterface.TextPosition.BottomRight);
+                    }
+                }
             }
         }
     }
