@@ -9,6 +9,7 @@ namespace DungeonCrawl.Actors.Items
             if(anotherActor is Player)
             {
                 PickUp(anotherActor, this);
+                anotherActor.MedsCount += 1;
             }
             return true;
         }

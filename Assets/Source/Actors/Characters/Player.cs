@@ -13,6 +13,7 @@ namespace DungeonCrawl.Actors.Characters
             Inventory = new List<Item>();
             Health = 100;
             Damage = 30;
+            MedsCount = 0;
         }
         protected override void OnUpdate(float deltaTime)
         {
@@ -36,7 +37,7 @@ namespace DungeonCrawl.Actors.Characters
                 TryMove(Direction.Right);
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 UseMeds();
             }
@@ -64,7 +65,5 @@ namespace DungeonCrawl.Actors.Characters
         }
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
-
-        public int MedsCount;
     }
 }
