@@ -21,8 +21,8 @@ namespace DungeonCrawl.Actors.Items
                         return true;
                     }
                 }
+                UserInterface.Singleton.SetText("You dont have the key!", UserInterface.TextPosition.BottomRight);
             }
-            UserInterface.Singleton.SetText("You dont have the key!", UserInterface.TextPosition.BottomRight);
             return false;
         }
         public override int DefaultSpriteId => 821;

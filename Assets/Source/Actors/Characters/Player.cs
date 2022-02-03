@@ -21,7 +21,7 @@ namespace DungeonCrawl.Actors.Characters
         }
         protected override void OnUpdate(float deltaTime)
         {
-            UserInterface.Singleton.SetText($"Health: {this.Health}\nDamage: {this.Damage}\nMeds: {MedsCount}\nSwords: {SwordsCount}\nKeys: {KeyCount}", UserInterface.TextPosition.TopLeft);
+            UserInterface.Singleton.SetText($"Health: {this.Health}\nDamage: {this.Damage}\nMeds: {MedsCount}\nSwords: {SwordsCount}", UserInterface.TextPosition.TopLeft);
             if (Input.GetKeyDown(KeyCode.W))
             {
                 TryMove(Direction.Up);
@@ -74,7 +74,6 @@ namespace DungeonCrawl.Actors.Characters
                     Health += 20;
                     Destroy(item);
                     inventory.itemList.Remove(item);
-                    MedsCount -= 1;
                     UserInterface.Singleton.SetText("+20 HP", UserInterface.TextPosition.MiddleLeft);
                     break;
                 }
@@ -94,10 +93,6 @@ namespace DungeonCrawl.Actors.Characters
             {
                 SwordsCount += 1;
             }
-            else if(item is Key)
-            {
-                KeyCount += 1;
-            }
             inventory.AddItem(item);
             item.Position = (99, 99);
             UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
@@ -111,7 +106,6 @@ namespace DungeonCrawl.Actors.Characters
                     Damage += 10;
                     Destroy(item);
                     inventory.itemList.Remove(item);
-                    SwordsCount -= 1;
                     UserInterface.Singleton.SetText("+10 Damage", UserInterface.TextPosition.MiddleLeft);
                     break;
                 }
@@ -129,7 +123,7 @@ namespace DungeonCrawl.Actors.Characters
             }
             return true;
         }
-        public override int DefaultSpriteId => 27;
+        public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
     }
 }

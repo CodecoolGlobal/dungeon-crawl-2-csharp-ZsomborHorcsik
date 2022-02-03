@@ -85,17 +85,22 @@ namespace DungeonCrawl.Actors.Characters
                 }
             }
         }
+
         public Skeleton()
         {
             Health = 40;
             Damage = 20;
         }
+
         public override bool OnCollision(Character anotherActor)
         {
-            ApplyDamage(anotherActor.Damage);
-            if (Health > 0)
+            if (anotherActor is Player)
             {
-                anotherActor.ApplyDamage(Damage);
+                ApplyDamage(anotherActor.Damage);
+                if (Health > 0)
+                {
+                    anotherActor.ApplyDamage(Damage);
+                }  
             }
             return false;
         }
