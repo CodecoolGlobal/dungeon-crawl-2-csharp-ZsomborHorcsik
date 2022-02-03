@@ -58,8 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Source\Actors\Items\Inventory.cs" />
+    <Compile Include="Assets\Source\Actors\Items\Key.cs" />
+    <Compile Include="Assets\Source\Actors\Static\Algea.cs" />
+    <Compile Include="Assets\Source\Actors\Static\Door.cs" />
     <Compile Include="Assets\Source\Actors\Static\Wall.cs" />
     <Compile Include="Assets\Source\Actors\Static\Floor.cs" />
+    <Compile Include="Assets\Source\Actors\Static\Water.cs" />
     <Compile Include="Assets\Source\Core\CameraController.cs" />
     <Compile Include="Assets\Source\Core\UserInterface.cs" />
     <Compile Include="Assets\Source\Actors\Items\Sword.cs" />

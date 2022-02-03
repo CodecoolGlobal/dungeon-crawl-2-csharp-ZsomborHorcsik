@@ -14,5 +14,9 @@ namespace DungeonCrawl.Actors.Items
         {
             itemList.Add(item);
         }
+        public void RemoveItem(Item item)
+        {
+            itemList.Remove(item);
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace DungeonCrawl.Actors.Characters
                 if (actorAtTargetPosition.OnCollision(this))
                 {
                     Position = targetPosition;
-                    if(actorAtTargetPosition is Item)
+                    if (actorAtTargetPosition is Item)
                     {
                         UserInterface.Singleton.SetText("Press E to pick up", UserInterface.TextPosition.BottomRight);
                     }
