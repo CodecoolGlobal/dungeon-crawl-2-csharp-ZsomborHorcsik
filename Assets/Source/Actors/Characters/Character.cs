@@ -37,16 +37,10 @@ namespace DungeonCrawl.Actors.Characters
             if (actorAtTargetPosition == null || actorAtTargetPosition.OnCollision(this))
             {
                 Position = targetPosition;
-            }
-            else
-            {
-                if (actorAtTargetPosition.OnCollision(this))
+                CameraController.Singleton.Position = Position;
+                if (actorAtTargetPosition is Item)
                 {
-                    Position = targetPosition;
-                    if (actorAtTargetPosition is Item)
-                    {
-                        UserInterface.Singleton.SetText("Press E to pick up", UserInterface.TextPosition.BottomRight);
-                    }
+                    UserInterface.Singleton.SetText("Press E to pick up", UserInterface.TextPosition.BottomRight);
                 }
             }
         }

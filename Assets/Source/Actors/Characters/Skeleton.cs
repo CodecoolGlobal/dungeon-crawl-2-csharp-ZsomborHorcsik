@@ -25,7 +25,10 @@ namespace DungeonCrawl.Actors.Characters
         {
             timer++;
             Actor player = ActorManager.Singleton.GetPlayerInstance();
-            distanceToPlayer = Math.Sqrt((Position.x - player.Position.x) ^ 2 + (Position.y - player.Position.y) ^ 2);
+            if (player != null)
+            {
+                distanceToPlayer = Math.Sqrt((Position.x - player.Position.x) ^ 2 + (Position.y - player.Position.y) ^ 2);
+            }
 
             if (distanceToPlayer <= 20)
             {
