@@ -6,55 +6,51 @@ namespace DungeonCrawl.Actors.Characters
 {
     public class Skeleton : Character
     {
-        private States ActiveState = States.patrol;
-        private int timer = 0;
-        private int movingTimer { get; set; } = 200;
+        private States _activeState = States.Patrol;
+        private int _timer = 0;
+        private float MovingTimer { get; set; } = 200;
         private enum States
         {
-            patrol,
-            attack,
+            Patrol,
+            Attack,
         }
 
-        private double distanceToPlayer;
+        private double _distanceToPlayer;
 
-        static Array values = Enum.GetValues(typeof(Direction));
-        static System.Random random = new System.Random();
-        Direction direction = (Direction)values.GetValue(random.Next(values.Length));
+        private static readonly Array Values = Enum.GetValues(typeof(Direction));
+        private static readonly System.Random Random = new System.Random();
+        Direction _direction = (Direction)Values.GetValue(Random.Next(Values.Length));
 
         protected override void OnUpdate(float deltaTime)
         {
-            timer++;
+            _timer++;
             Actor player = ActorManager.Singleton.GetPlayerInstance();
             if (player != null)
             {
-                distanceToPlayer = Math.Sqrt((Position.x - player.Position.x) ^ 2 + (Position.y - player.Position.y) ^ 2);
+                _distanceToPlayer = Math.Sqrt((Position.x - player.Position.x) ^ 2 + (Position.y - player.Position.y) ^ 2);
             }
 
-            if (distanceToPlayer <= 20)
-            {
-                ActiveState = States.attack;
-            }
-            else
-            {
-                ActiveState = States.patrol;
-            }
+            _activeState = _distanceToPlayer <= 3 ? States.Attack : States.Patrol;
 
-            if (timer == movingTimer)
+            if (_timer >= MovingTimer)
             {
-                timer = 0;
+                _timer = 0;
                 (int x, int y) targetPosition = (Position.x, Position.y);
 
-                switch (ActiveState)
+                switch (_activeState)
                 {
-                    case States.patrol:
-                        var vector = direction.ToVector();
+                    case States.Patrol:
+                        var vector = _direction.ToVector();
                         targetPosition = (Position.x + vector.x, Position.y + vector.y);
                         break;
 
-                    case States.attack:
-                        int horOffset = Math.Sign(player.Position.x - Position.x);
-                        int verOffset = Math.Sign(player.Position.y - Position.y);
-                        targetPosition = (Position.x + horOffset, Position.y + verOffset);
+                    case States.Attack:
+                        if (player != null)
+                        {
+                            int horOffset = Math.Sign(player.Position.x - Position.x);
+                            int verOffset = Math.Sign(player.Position.y - Position.y);
+                            targetPosition = (Position.x + horOffset, Position.y + verOffset);
+                        }
                         break;
                 }
                 
@@ -66,22 +62,22 @@ namespace DungeonCrawl.Actors.Characters
                 }
                 else
                 {
-                    switch (direction)
+                    switch (_direction)
                     {
                         case Direction.Right:
-                            direction = Direction.Left;
+                            _direction = Direction.Left;
                             break;
 
                         case Direction.Up:
-                            direction = Direction.Down;
+                            _direction = Direction.Down;
                             break;
 
                         case Direction.Left:
-                            direction = Direction.Right;
+                            _direction = Direction.Right;
                             break;
 
                         case Direction.Down:
-                            direction = Direction.Up;
+                            _direction = Direction.Up;
                             break;
 
                     }
