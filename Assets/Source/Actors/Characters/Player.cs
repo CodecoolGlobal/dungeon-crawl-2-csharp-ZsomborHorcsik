@@ -1,46 +1,130 @@
 ﻿using UnityEngine;
+using DungeonCrawl.Actors.Items;
+using DungeonCrawl.Core;
 
 namespace DungeonCrawl.Actors.Characters
 {
     public class Player : Character
     {
+        public Inventory inventory;
+        private int MedsCount;
+        private int SwordsCount;
+        public int KeyCount;
+        public Player()
+        {
+            inventory = new Inventory();
+            Health = 100;
+            Damage = 30;
+            MedsCount = 0;
+            SwordsCount = 0;
+            KeyCount = 0;
+        }
         protected override void OnUpdate(float deltaTime)
         {
+            UserInterface.Singleton.SetText($"Health: {this.Health}\nDamage: {this.Damage}\nMeds: {MedsCount}\nSwords: {SwordsCount}", UserInterface.TextPosition.TopLeft);
             if (Input.GetKeyDown(KeyCode.W))
             {
-                // Move up
                 TryMove(Direction.Up);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                // Move down
                 TryMove(Direction.Down);
             }
 
             if (Input.GetKeyDown(KeyCode.A))
             {
-                // Move left
                 TryMove(Direction.Left);
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
-                // Move right
                 TryMove(Direction.Right);
             }
-        }
 
-        public override bool OnCollision(Actor anotherActor)
-        {
-            return false;
-        }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                UseMeds();
+            }
 
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                var item = ActorManager.Singleton.GetActorAt<Item>(this.Position);
+                if (CheckPosition(item))
+                {
+                    PickUp(item);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                UseSwords();
+            }
+        }
+        public override bool OnCollision(Character anotherActor) => false;
         protected override void OnDeath()
         {
-            Debug.Log("Oh no, I'm dead!");
+            UserInterface.Singleton.SetText("Goodbye cruel world...", UserInterface.TextPosition.MiddleCenter);
         }
-
+        private void UseMeds()
+        {
+            foreach(var item in inventory.itemList)
+            {
+                if(item is HealthPack)
+                {
+                    Health += 20;
+                    MedsCount--;
+                    Destroy(item);
+                    inventory.itemList.Remove(item);
+                    UserInterface.Singleton.SetText("+20 HP", UserInterface.TextPosition.MiddleLeft);
+                    break;
+                }
+                else
+                {
+                    UserInterface.Singleton.SetText("No Meds available!", UserInterface.TextPosition.MiddleLeft);
+                }
+            }
+        }
+        private void PickUp(Item item)
+        {
+            if(item is HealthPack)
+            {
+                MedsCount += 1; 
+            }
+            else if(item is Sword)
+            {
+                SwordsCount += 1;
+            }
+            inventory.AddItem(item);
+            item.Position = (99, 99);
+            UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
+        }
+        private void UseSwords()
+        {
+            foreach (var item in inventory.itemList)
+            {
+                if (item is Sword)
+                {
+                    Damage += 10;
+                    SwordsCount--;
+                    Destroy(item);
+                    inventory.itemList.Remove(item);
+                    UserInterface.Singleton.SetText("+10 Damage", UserInterface.TextPosition.MiddleLeft);
+                    break;
+                }
+                else
+                {
+                    UserInterface.Singleton.SetText("No more Sword!", UserInterface.TextPosition.MiddleLeft);
+                }
+            }
+        }
+        private bool CheckPosition(Item item)
+        {
+            if(item == null)
+            {
+                return false;
+            }
+            return true;
+        }
         public override int DefaultSpriteId => 24;
         public override string DefaultName => "Player";
     }

@@ -1,5 +1,6 @@
 ﻿using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Actors.Static;
+using DungeonCrawl.Actors.Items;
 using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -37,8 +38,8 @@ namespace DungeonCrawl.Core
             }
 
             // Set default camera size and position
-            CameraController.Singleton.Size = 10;
-            CameraController.Singleton.Position = (width / 2, -height / 2);
+            CameraController.Singleton.Size = 5;
+            CameraController.Singleton.Position = (7, -17);
         }
 
         private static void SpawnActor(char c, (int x, int y) position)
@@ -58,6 +59,29 @@ namespace DungeonCrawl.Core
                 case 's':
                     ActorManager.Singleton.Spawn<Skeleton>(position);
                     ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'i':
+                    ActorManager.Singleton.Spawn<Sword>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'h':
+                    ActorManager.Singleton.Spawn<HealthPack>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'd':
+                    ActorManager.Singleton.Spawn<Door>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'k':
+                    ActorManager.Singleton.Spawn<Key>(position);
+                    ActorManager.Singleton.Spawn<Floor>(position);
+                    break;
+                case 'w':
+                    ActorManager.Singleton.Spawn<Water>(position);
+                    break;
+                case 'a':
+                    ActorManager.Singleton.Spawn<Water>(position);
+                    ActorManager.Singleton.Spawn<Algea>(position);
                     break;
                 case ' ':
                     break;

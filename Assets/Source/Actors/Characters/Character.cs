@@ -1,20 +1,20 @@
 ﻿using DungeonCrawl.Core;
+using DungeonCrawl.Actors.Items;
 
 namespace DungeonCrawl.Actors.Characters
 {
     public abstract class Character : Actor
     {
-        public int Health { get; private set; }
+        public int Health { get; set; }
+        public int Damage { get; set; }
 
-        public void ApplyDamage(int damage)
+        public void ApplyDamage(int damageByEnemy)
         {
-            Health -= damage;
+            Health -= damageByEnemy;
 
             if (Health <= 0)
             {
-                // Die
                 OnDeath();
-
                 ActorManager.Singleton.DestroyActor(this);
             }
         }
@@ -25,5 +25,24 @@ namespace DungeonCrawl.Actors.Characters
         ///     All characters are drawn "above" floor etc
         /// </summary>
         public override int Z => -1;
+
+        public void TryMove(Direction direction)
+        {
+            UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
+            var vector = direction.ToVector();
+            (int x, int y) targetPosition = (Position.x + vector.x, Position.y + vector.y);
+
+            var actorAtTargetPosition = ActorManager.Singleton.GetActorAt(targetPosition);
+
+            if (actorAtTargetPosition == null || actorAtTargetPosition.OnCollision(this))
+            {
+                Position = targetPosition;
+                CameraController.Singleton.Position = Position;
+                if (actorAtTargetPosition is Item)
+                {
+                    UserInterface.Singleton.SetText("Press E to pick up", UserInterface.TextPosition.BottomRight);
+                }
+            }
+        }
     }
 }

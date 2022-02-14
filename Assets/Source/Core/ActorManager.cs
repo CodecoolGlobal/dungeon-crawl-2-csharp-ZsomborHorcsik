@@ -33,6 +33,19 @@ namespace DungeonCrawl.Core
             _spriteAtlas = Resources.Load<SpriteAtlas>("Spritesheet");
         }
 
+        public Actor GetPlayerInstance()
+        {
+            Actor[] actors = _allActors.ToArray();
+            foreach (Actor actor in actors)
+            {
+                if (actor.DefaultName == "Player")
+                {
+                    return actor;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         ///     Returns actor present at given position (returns null if no actor is present)
         /// </summary>
@@ -116,7 +129,6 @@ namespace DungeonCrawl.Core
             component.Position = (x, y);
 
             _allActors.Add(component);
-
             return component;
         }
     }

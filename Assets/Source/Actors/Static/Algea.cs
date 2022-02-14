@@ -2,10 +2,10 @@
 
 namespace DungeonCrawl.Actors.Static
 {
-    public class Wall : Actor
+    public class Algea : Actor
     {
         public override bool OnCollision(Character anotherActor) => false;
-        public override int DefaultSpriteId => 825;
-        public override string DefaultName => "Wall";
+        public override int DefaultSpriteId => 5;
+        public override string DefaultName => "Algea";
     }
 }
