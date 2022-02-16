@@ -23,7 +23,7 @@ namespace DungeonCrawl.Actors.Characters
         }
         protected override void OnUpdate(float deltaTime)
         {
-            UserInterface.Singleton.SetText($"Health: {this.Health}\nDamage: {this.Damage}\nMeds: {MedsCount}\nSwords: {SwordsCount}", UserInterface.TextPosition.TopLeft);
+            UserInterface.Singleton.SetText($"Health: {this.Health}\nDamage: {this.Damage}\nMeds: {MedsCount}\nSwords: {SwordsCount}\nKeys: {KeyCount}", UserInterface.TextPosition.TopLeft);
             if (Input.GetKeyDown(KeyCode.W))
             {
                 TryMove(Direction.Up);
@@ -113,11 +113,15 @@ namespace DungeonCrawl.Actors.Characters
         {
             if(item is HealthPack)
             {
-                MedsCount += 1; 
+                MedsCount++;
             }
             else if(item is Sword)
             {
-                SwordsCount += 1;
+                SwordsCount++;
+            }
+            else if(item is Key)
+            {
+                KeyCount++;
             }
             inventory.AddItem(item);
             item.Position = (99, 99);

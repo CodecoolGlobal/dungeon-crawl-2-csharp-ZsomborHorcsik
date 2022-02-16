@@ -44,6 +44,23 @@ namespace DungeonCrawl
                 });
             File.WriteAllText(filePath, jsonOutput);
         }
-        
+        public static GameState LoadGame()
+        {
+            string jsonInput = File.ReadAllText($@"C:\Users\roola\Desktop\Github\dungeon-crawl-2-csharp-ZsomborHorcsik\Assets\Source\dungeoncrawl-{lastSaveDate}.txt");
+            return JsonConvert.DeserializeObject<GameState>(jsonInput);
+        }
+        public static void LoadSavedInventory(GameState save, List<Item> inventory)
+        {
+            foreach (var key in save.SavedInventory.Keys)
+            {
+                if (key == "Keys")
+                {
+                    for (int i = 0; i < save.SavedInventory[key]; i++)
+                    {
+                        Console.WriteLine("asd");
+                    }
+                }
+            }
+        }
     }
 }
