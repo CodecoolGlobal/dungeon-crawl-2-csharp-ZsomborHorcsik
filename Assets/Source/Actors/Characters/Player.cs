@@ -75,7 +75,7 @@ namespace DungeonCrawl.Actors.Characters
                 this.KeyCount = SaveGame.SavedInventory["Keys"];
                 this.SwordsCount = SaveGame.SavedInventory["Swords"];
                 this.MedsCount = SaveGame.SavedInventory["Meds"];
-                //Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
+                Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
                 UserInterface.Singleton.SetText($"Game Loaded from {Utilities.lastSaveDate}", UserInterface.TextPosition.BottomLeft);
             }
         }

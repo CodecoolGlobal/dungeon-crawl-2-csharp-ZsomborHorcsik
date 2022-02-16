@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using DungeonCrawl.Actors.Items;
+using UnityEngine;
 
 namespace DungeonCrawl
 {
@@ -52,21 +53,24 @@ namespace DungeonCrawl
         public static void LoadSavedInventory(GameState save, List<Item> inventory)
         {
             inventory.Clear();
-            foreach (var key in save.SavedInventory.Keys)
+            foreach (string key in save.SavedInventory.Keys)
             {
                 for (int i = 0; i < save.SavedInventory[key]; i++)
                 {
                     if(key == "Keys")
                     {
-                        inventory.Add(new Key());
+                        Item doorKey = new GameObject().AddComponent<Key>();
+                        inventory.Add(doorKey);
                     }
                     if (key == "Swords")
                     {
-                        inventory.Add(new Sword());
+                        Item sword = new GameObject().AddComponent<Sword>();
+                        inventory.Add(sword);
                     }
                     if (key == "Meds")
                     {
-                        inventory.Add(new HealthPack());
+                        Item medical = new GameObject().AddComponent<HealthPack>();
+                        inventory.Add(medical);
                     }
                 }
             }
