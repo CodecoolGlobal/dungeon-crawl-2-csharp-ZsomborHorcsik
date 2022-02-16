@@ -14,6 +14,7 @@ namespace DungeonCrawl.Actors.Items
                 {
                     if(item is Key)
                     {
+                        ActorManager.Singleton.DestroyActor(this);
                         ActorManager.Singleton.DestroyActor(item);
                         player.inventory.RemoveItem(item);
                         player.KeyCount -= 1;
