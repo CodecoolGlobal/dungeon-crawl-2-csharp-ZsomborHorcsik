@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System;
 using DungeonCrawl.Actors.Items;
 using DungeonCrawl.Core;
+using System.Collections.Generic;
 
 namespace DungeonCrawl.Actors.Characters
 {
@@ -59,11 +61,34 @@ namespace DungeonCrawl.Actors.Characters
             {
                 UseSwords();
             }
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                GameState gameSave = new GameState(this.Damage, this.Health, this.Position, GenerateSaveAbleInventory());
+                Utilities.SaveGame(gameSave);
+                UserInterface.Singleton.SetText("Game saved!", UserInterface.TextPosition.BottomLeft);
+            }
+            if (Input.GetKeyDown(KeyCode.F9))
+            {
+                GameState SaveGame = Utilities.LoadGame();
+                this.Health = SaveGame.PlayerHealth;
+                this.Damage = SaveGame.PlayerDamage;
+                this.Position = SaveGame.SavedPosition;
+                this.inventory.itemList.Clear();
+                Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
+            }
         }
         public override bool OnCollision(Character anotherActor) => false;
         protected override void OnDeath()
         {
             UserInterface.Singleton.SetText("Goodbye cruel world...", UserInterface.TextPosition.MiddleCenter);
+        }
+        private Dictionary<string, int> GenerateSaveAbleInventory()
+        {
+            Dictionary<string,int> StorageInventory = new Dictionary<string,int>();
+            StorageInventory.Add("Keys", KeyCount);
+            StorageInventory.Add("Swords", SwordsCount);
+            StorageInventory.Add("Meds", MedsCount);
+            return StorageInventory;
         }
         private void UseMeds()
         {

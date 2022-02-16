@@ -11,5 +11,6 @@ namespace DungeonCrawl.Core
         {
             MapLoader.LoadMap(1);
         }
+
     }
 }
