@@ -63,8 +63,7 @@ namespace DungeonCrawl.Actors.Characters
             }
             if (Input.GetKeyDown(KeyCode.F5))
             {
-                GameState gameSave = new GameState(this.Damage, this.Health, this.Position, GenerateSaveAbleInventory());
-                Utilities.SaveGame(gameSave);
+                Utilities.SaveGame(new GameState(this.Damage, this.Health, this.Position, GenerateSaveAbleInventory()));
                 UserInterface.Singleton.SetText("Game saved!", UserInterface.TextPosition.BottomLeft);
             }
             if (Input.GetKeyDown(KeyCode.F9))
@@ -73,8 +72,11 @@ namespace DungeonCrawl.Actors.Characters
                 this.Health = SaveGame.PlayerHealth;
                 this.Damage = SaveGame.PlayerDamage;
                 this.Position = SaveGame.SavedPosition;
-                this.inventory.itemList.Clear();
-                Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
+                this.KeyCount = SaveGame.SavedInventory["Keys"];
+                this.SwordsCount = SaveGame.SavedInventory["Swords"];
+                this.MedsCount = SaveGame.SavedInventory["Meds"];
+                //Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
+                UserInterface.Singleton.SetText($"Game Loaded from {Utilities.lastSaveDate}", UserInterface.TextPosition.BottomLeft);
             }
         }
         public override bool OnCollision(Character anotherActor) => false;

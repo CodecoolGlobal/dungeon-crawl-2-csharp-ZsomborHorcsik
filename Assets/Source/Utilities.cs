@@ -17,7 +17,7 @@ namespace DungeonCrawl
 
     public static class Utilities
     {
-        private static string lastSaveDate;
+        public static string lastSaveDate;
         public static (int x, int y) ToVector(this Direction dir)
         {
             switch (dir)
@@ -51,13 +51,22 @@ namespace DungeonCrawl
         }
         public static void LoadSavedInventory(GameState save, List<Item> inventory)
         {
+            inventory.Clear();
             foreach (var key in save.SavedInventory.Keys)
             {
-                if (key == "Keys")
+                for (int i = 0; i < save.SavedInventory[key]; i++)
                 {
-                    for (int i = 0; i < save.SavedInventory[key]; i++)
+                    if(key == "Keys")
                     {
-                        Console.WriteLine("asd");
+                        inventory.Add(new Key());
+                    }
+                    if (key == "Swords")
+                    {
+                        inventory.Add(new Sword());
+                    }
+                    if (key == "Meds")
+                    {
+                        inventory.Add(new HealthPack());
                     }
                 }
             }
