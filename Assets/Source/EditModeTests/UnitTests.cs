@@ -126,8 +126,22 @@ public class UnitTests
         Player player = new GameObject().AddComponent<Player>();
         Sword sword = new Sword();
         player.PickUp(sword);
+        player.UseSwords();
         int expected = 40;
         int result = player.Damage;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseSword_SwordAmountDecreaseOnUsage()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Sword sword = new Sword();
+        Sword sword2 = new Sword();
+        player.PickUp(sword);
+        player.PickUp(sword2);
+        player.UseSwords();
+        int expected = 1;
+        int result = player.SwordsCount;
         Assert.AreEqual(expected, result);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
