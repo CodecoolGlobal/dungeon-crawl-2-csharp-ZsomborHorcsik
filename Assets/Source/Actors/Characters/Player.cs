@@ -104,7 +104,7 @@ namespace DungeonCrawl.Actors.Characters
                 {
                     Health += 20;
                     MedsCount--;
-                    Destroy(item);
+                    DestroyImmediate(item);
                     inventory.itemList.Remove(item);
                     UserInterface.Singleton.SetText("+20 HP", UserInterface.TextPosition.MiddleLeft);
                     break;
@@ -141,7 +141,7 @@ namespace DungeonCrawl.Actors.Characters
                 {
                     Damage += 10;
                     SwordsCount--;
-                    Destroy(item);
+                    DestroyImmediate(item);
                     inventory.itemList.Remove(item);
                     UserInterface.Singleton.SetText("+10 Damage", UserInterface.TextPosition.MiddleLeft);
                     break;

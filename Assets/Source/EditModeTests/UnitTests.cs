@@ -137,7 +137,7 @@ public class UnitTests
     {
         Player player = new GameObject().AddComponent<Player>();
         Sword sword = new GameObject().AddComponent<Sword>();
-        player.PickUp(sword);
+        player.inventory.AddItem(sword);
         player.UseSwords();
         int expected = 40;
         int result = player.Damage;
