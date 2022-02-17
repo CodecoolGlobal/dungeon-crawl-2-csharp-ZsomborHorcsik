@@ -64,6 +64,14 @@ public class UnitTests
         int result = player.inventory.itemList.Count;
         Assert.AreEqual(expected, result);
     }
+    [Test]
+    public void PickUp_PlayerPickUpMedsIncreaseAmount()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        HealthPack med = new HealthPack();
+        player.PickUp(med);
+        Assert.AreEqual(1, player.MedsCount);
+    }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     [UnityTest]

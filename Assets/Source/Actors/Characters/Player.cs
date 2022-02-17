@@ -9,8 +9,8 @@ namespace DungeonCrawl.Actors.Characters
     public class Player : Character
     {
         public Inventory inventory;
-        private int MedsCount;
-        private int SwordsCount;
+        public int MedsCount;
+        public int SwordsCount;
         public int KeyCount;
         public Player()
         {
