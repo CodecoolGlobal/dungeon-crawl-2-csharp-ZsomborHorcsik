@@ -9,8 +9,8 @@ namespace DungeonCrawl.Actors.Characters
     public class Player : Character
     {
         public Inventory inventory;
-        private int MedsCount;
-        private int SwordsCount;
+        public int MedsCount;
+        public int SwordsCount;
         public int KeyCount;
         public Player()
         {
@@ -92,7 +92,7 @@ namespace DungeonCrawl.Actors.Characters
             StorageInventory.Add("Meds", MedsCount);
             return StorageInventory;
         }
-        private void UseMeds()
+        public void UseMeds()
         {
             foreach(var item in inventory.itemList)
             {
@@ -111,7 +111,7 @@ namespace DungeonCrawl.Actors.Characters
                 }
             }
         }
-        private void PickUp(Item item)
+        public void PickUp(Item item)
         {
             if(item is HealthPack)
             {
@@ -129,7 +129,7 @@ namespace DungeonCrawl.Actors.Characters
             item.Position = (99, 99);
             UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
         }
-        private void UseSwords()
+        public void UseSwords()
         {
             foreach (var item in inventory.itemList)
             {
