@@ -121,6 +121,19 @@ public class UnitTests
         Assert.AreEqual(expected, result);
     }
     [Test]
+    public void UseMeds_PlayerUseMedsRemoveItemFromInventory()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        HealthPack med = new HealthPack();
+        Sword sword = new Sword();
+        player.PickUp(med);
+        player.PickUp(sword);
+        player.UseMeds();
+        int expected = 1;
+        int result = player.inventory.itemList.Count;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
     public void UseSword_PlayerDamageIncreaseOnSwordUsage()
     {
         Player player = new GameObject().AddComponent<Player>();
@@ -142,6 +155,19 @@ public class UnitTests
         player.UseSwords();
         int expected = 1;
         int result = player.SwordsCount;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseSword_SwordUsageRemoveItemFromInventory()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        HealthPack med = new HealthPack();
+        Sword sword = new Sword();
+        player.PickUp(med);
+        player.PickUp(sword);
+        player.UseSwords();
+        int expected = 1;
+        int result = player.inventory.itemList.Count;
         Assert.AreEqual(expected, result);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
