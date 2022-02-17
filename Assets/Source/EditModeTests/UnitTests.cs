@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using DungeonCrawl.Actors;
 using DungeonCrawl.Actors.Characters;
 using DungeonCrawl.Actors.Items;
 using NUnit.Framework;
@@ -40,7 +38,8 @@ public class UnitTests
     public void Inventory_InventoryCanTakeItems()
     {
         Inventory inventory = new Inventory();
-        inventory.AddItem(new Sword());
+        Sword sword = new GameObject().AddComponent<Sword>();
+        inventory.AddItem(sword);
         int expected = 1;
         int result = inventory.itemList.Count;
         Assert.AreEqual(expected, result);
@@ -49,7 +48,7 @@ public class UnitTests
     public void Inventory_InventoryCanRemoveItem()
     {
         Inventory inventory = new Inventory();
-        Sword sword = new Sword();
+        Sword sword = new GameObject().AddComponent<Sword>();
         Key key = new Key();
         inventory.AddItem(sword);
         inventory.AddItem(key);
@@ -62,7 +61,7 @@ public class UnitTests
     public void PickUp_PlayerCanPickUpItems()
     {
         Player player = new GameObject().AddComponent<Player>();
-        Sword item = new Sword();
+        Sword item = new GameObject().AddComponent<Sword>();
         player.PickUp(item);
         int expected = 1;
         int result = player.inventory.itemList.Count;
@@ -72,7 +71,7 @@ public class UnitTests
     public void PickUp_PlayerPickUpMedsIncreaseAmount()
     {
         Player player = new GameObject().AddComponent<Player>();
-        HealthPack med = new HealthPack();
+        HealthPack med = new GameObject().AddComponent<HealthPack>();
         player.PickUp(med);
         int expected = 1;
         int result = player.MedsCount;
@@ -82,7 +81,7 @@ public class UnitTests
     public void PickUp_PlayerPickUpSwordIncreaseAmount()
     {
         Player player = new GameObject().AddComponent<Player>();
-        Sword item = new Sword();
+        Sword item = new GameObject().AddComponent<Sword>();
         player.PickUp(item);
         int expected = 1;
         int result = player.SwordsCount;
@@ -92,7 +91,7 @@ public class UnitTests
     public void PickUp_PlayerPickUpKeyIncreaseAmount()
     {
         Player player = new GameObject().AddComponent<Player>();
-        Key item = new Key();
+        Key item = new GameObject().AddComponent<Key>();
         player.PickUp(item);
         int expected = 1;
         int result = player.KeyCount;
@@ -102,7 +101,7 @@ public class UnitTests
     public void UseMeds_PlayerUseMedsIncreasePlayerHitpoint()
     {
         Player player = new GameObject().AddComponent<Player>();
-        HealthPack med = new HealthPack();
+        HealthPack med = new GameObject().AddComponent<HealthPack>();
         player.PickUp(med);
         player.UseMeds();
         int expected = 120;
@@ -113,11 +112,61 @@ public class UnitTests
     public void UseMeds_PlayerUseMedsDecreaseMedsAmount()
     {
         Player player = new GameObject().AddComponent<Player>();
-        HealthPack med = new HealthPack();
+        HealthPack med = new GameObject().AddComponent<HealthPack>();
         player.PickUp(med);
         player.UseMeds();
         int expected = 0;
         int result = player.MedsCount;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseMeds_PlayerUseMedsRemoveItemFromInventory()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        HealthPack med = new GameObject().AddComponent<HealthPack>();
+        Sword sword = new GameObject().AddComponent<Sword>();
+        player.PickUp(med);
+        player.PickUp(sword);
+        player.UseMeds();
+        int expected = 1;
+        int result = player.inventory.itemList.Count;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseSword_PlayerDamageIncreaseOnSwordUsage()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Sword sword = new GameObject().AddComponent<Sword>();
+        player.PickUp(sword);
+        player.UseSwords();
+        int expected = 40;
+        int result = player.Damage;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseSword_SwordAmountDecreaseOnUsage()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Sword sword = new GameObject().AddComponent<Sword>();
+        Sword sword2 = new GameObject().AddComponent<Sword>();
+        player.PickUp(sword);
+        player.PickUp(sword2);
+        player.UseSwords();
+        int expected = 1;
+        int result = player.SwordsCount;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseSword_SwordUsageRemoveItemFromInventory()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        HealthPack med = new GameObject().AddComponent<HealthPack>();
+        Sword sword = new GameObject().AddComponent<Sword>();
+        player.PickUp(med);
+        player.PickUp(sword);
+        player.UseSwords();
+        int expected = 1;
+        int result = player.inventory.itemList.Count;
         Assert.AreEqual(expected, result);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
