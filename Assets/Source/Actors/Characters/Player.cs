@@ -68,21 +68,25 @@ namespace DungeonCrawl.Actors.Characters
             }
             if (Input.GetKeyDown(KeyCode.F9))
             {
-                GameState SaveGame = Utilities.LoadGame();
-                this.Health = SaveGame.PlayerHealth;
-                this.Damage = SaveGame.PlayerDamage;
-                this.Position = SaveGame.SavedPosition;
-                this.KeyCount = SaveGame.SavedInventory["Keys"];
-                this.SwordsCount = SaveGame.SavedInventory["Swords"];
-                this.MedsCount = SaveGame.SavedInventory["Meds"];
-                Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
-                UserInterface.Singleton.SetText($"Game Loaded from {Utilities.lastSaveDate}", UserInterface.TextPosition.BottomLeft);
+                LoadLastSave();
             }
         }
         public override bool OnCollision(Character anotherActor) => false;
         protected override void OnDeath()
         {
             UserInterface.Singleton.SetText("Goodbye cruel world...", UserInterface.TextPosition.MiddleCenter);
+        }
+        private void LoadLastSave()
+        {
+            GameState SaveGame = Utilities.LoadGame();
+            this.Health = SaveGame.PlayerHealth;
+            this.Damage = SaveGame.PlayerDamage;
+            this.Position = SaveGame.SavedPosition;
+            this.KeyCount = SaveGame.SavedInventory["Keys"];
+            this.SwordsCount = SaveGame.SavedInventory["Swords"];
+            this.MedsCount = SaveGame.SavedInventory["Meds"];
+            Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
+            UserInterface.Singleton.SetText($"Game Loaded from {Utilities.lastSaveDate}", UserInterface.TextPosition.BottomLeft);
         }
         private Dictionary<string, int> GenerateSaveAbleInventory()
         {
