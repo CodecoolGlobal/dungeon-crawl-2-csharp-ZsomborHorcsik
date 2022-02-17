@@ -15,7 +15,9 @@ public class UnitTests
     {
         Player player = new GameObject().AddComponent<Player>();
         player.ApplyDamage(20);
-        Assert.AreEqual(80, player.Health);
+        int expected = 80;
+        int result = player.Health;
+        Assert.AreEqual(expected, result);
     }
     [Test]
     public void Player_PlayerCanDealDamage()
@@ -30,7 +32,9 @@ public class UnitTests
     {
         Skeleton skeleton = new GameObject().AddComponent<Skeleton>();
         skeleton.ApplyDamage(20);
-        Assert.AreEqual(20, skeleton.Health);
+        int expected = 20;
+        int result = skeleton.Health;
+        Assert.AreEqual(expected, result);
     }
     [Test]
     public void Inventory_InventoryCanTakeItems()
@@ -70,7 +74,9 @@ public class UnitTests
         Player player = new GameObject().AddComponent<Player>();
         HealthPack med = new HealthPack();
         player.PickUp(med);
-        Assert.AreEqual(1, player.MedsCount);
+        int expected = 1;
+        int result = player.MedsCount;
+        Assert.AreEqual(expected, result);
     }
     [Test]
     public void PickUp_PlayerPickUpSwordIncreaseAmount()
@@ -78,7 +84,9 @@ public class UnitTests
         Player player = new GameObject().AddComponent<Player>();
         Sword item = new Sword();
         player.PickUp(item);
-        Assert.AreEqual(1, player.SwordsCount);
+        int expected = 1;
+        int result = player.SwordsCount;
+        Assert.AreEqual(expected, result);
     }
     [Test]
     public void PickUp_PlayerPickUpKeyIncreaseAmount()
@@ -86,7 +94,9 @@ public class UnitTests
         Player player = new GameObject().AddComponent<Player>();
         Key item = new Key();
         player.PickUp(item);
-        Assert.AreEqual(1, player.KeyCount);
+        int expected = 1;
+        int result = player.KeyCount;
+        Assert.AreEqual(expected, result);
     }
     [Test]
     public void UseMeds_PlayerUseMedsIncreasePlayerHitpoint()
@@ -95,7 +105,20 @@ public class UnitTests
         HealthPack med = new HealthPack();
         player.PickUp(med);
         player.UseMeds();
-        Assert.AreEqual(120, player.Health);
+        int expected = 120;
+        int result = player.Health;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void UseMeds_PlayerUseMedsDecreaseMedsAmount()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        HealthPack med = new HealthPack();
+        player.PickUp(med);
+        player.UseMeds();
+        int expected = 0;
+        int result = player.MedsCount;
+        Assert.AreEqual(expected, result);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
