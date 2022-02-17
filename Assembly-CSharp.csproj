@@ -54,7 +54,26 @@
     <UnityVersion>2021.1.24f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.DotNet.InternalAbstractions.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CommunicationUtilities.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CoreUtilities.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CrossPlatEngine.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.PlatformAbstractions.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.Utilities.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.Common.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\nunit.engine.api.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\nunit.engine.core.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\nunit.engine.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\nunit.framework.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\testhost.dll" />
+    <Analyzer Include="Assets\Source\UnitTests\bin\Debug\netcoreapp3.1\UnitTests.dll" />
+    <Analyzer Include="C:\Program Files(x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Source\Actors\Items\Inventory.cs" />
