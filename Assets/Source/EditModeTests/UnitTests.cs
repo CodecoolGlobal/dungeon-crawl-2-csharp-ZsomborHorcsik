@@ -120,6 +120,16 @@ public class UnitTests
         int result = player.MedsCount;
         Assert.AreEqual(expected, result);
     }
+    [Test]
+    public void UseSword_PlayerDamageIncreaseOnSwordUsage()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Sword sword = new Sword();
+        player.PickUp(sword);
+        int expected = 40;
+        int result = player.Damage;
+        Assert.AreEqual(expected, result);
+    }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     [UnityTest]
