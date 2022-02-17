@@ -54,6 +54,16 @@ public class UnitTests
         int result = inventory.itemList.Count;
         Assert.AreEqual(result, expected);
     }
+    [Test]
+    public void PickUp_PlayerCanPickUpItems()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Sword item = new Sword();
+        player.PickUp(item);
+        int expected = 1;
+        int result = player.inventory.itemList.Count;
+        Assert.AreEqual(expected, result);
+    }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     [UnityTest]
