@@ -72,6 +72,22 @@ public class UnitTests
         player.PickUp(med);
         Assert.AreEqual(1, player.MedsCount);
     }
+    [Test]
+    public void PickUp_PlayerPickUpSwordIncreaseAmount()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Sword item = new Sword();
+        player.PickUp(item);
+        Assert.AreEqual(1, player.SwordsCount);
+    }
+    [Test]
+    public void PickUp_PlayerPickUpKeyIncreaseAmount()
+    {
+        Player player = new GameObject().AddComponent<Player>();
+        Key item = new Key();
+        player.PickUp(item);
+        Assert.AreEqual(1, player.KeyCount);
+    }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     [UnityTest]
