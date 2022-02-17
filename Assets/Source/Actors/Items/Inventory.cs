@@ -9,6 +9,7 @@ namespace DungeonCrawl.Actors.Items
         {
             itemList = new List<Item>();
         }
+
         public void AddItem(Item item)
         {
             itemList.Add(item);

@@ -9,8 +9,8 @@ namespace DungeonCrawl.Actors.Characters
     public class Player : Character
     {
         public Inventory inventory;
-        public int MedsCount;
-        public int SwordsCount;
+        private int MedsCount;
+        private int SwordsCount;
         public int KeyCount;
         public Player()
         {
@@ -68,25 +68,21 @@ namespace DungeonCrawl.Actors.Characters
             }
             if (Input.GetKeyDown(KeyCode.F9))
             {
-                LoadLastSave();
+                GameState SaveGame = Utilities.LoadGame();
+                this.Health = SaveGame.PlayerHealth;
+                this.Damage = SaveGame.PlayerDamage;
+                this.Position = SaveGame.SavedPosition;
+                this.KeyCount = SaveGame.SavedInventory["Keys"];
+                this.SwordsCount = SaveGame.SavedInventory["Swords"];
+                this.MedsCount = SaveGame.SavedInventory["Meds"];
+                Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
+                UserInterface.Singleton.SetText($"Game Loaded from {Utilities.lastSaveDate}", UserInterface.TextPosition.BottomLeft);
             }
         }
         public override bool OnCollision(Character anotherActor) => false;
         protected override void OnDeath()
         {
             UserInterface.Singleton.SetText("Goodbye cruel world...", UserInterface.TextPosition.MiddleCenter);
-        }
-        private void LoadLastSave()
-        {
-            GameState SaveGame = Utilities.LoadGame();
-            this.Health = SaveGame.PlayerHealth;
-            this.Damage = SaveGame.PlayerDamage;
-            this.Position = SaveGame.SavedPosition;
-            this.KeyCount = SaveGame.SavedInventory["Keys"];
-            this.SwordsCount = SaveGame.SavedInventory["Swords"];
-            this.MedsCount = SaveGame.SavedInventory["Meds"];
-            Utilities.LoadSavedInventory(SaveGame, this.inventory.itemList);
-            UserInterface.Singleton.SetText($"Game Loaded from {Utilities.lastSaveDate}", UserInterface.TextPosition.BottomLeft);
         }
         private Dictionary<string, int> GenerateSaveAbleInventory()
         {
@@ -96,7 +92,7 @@ namespace DungeonCrawl.Actors.Characters
             StorageInventory.Add("Meds", MedsCount);
             return StorageInventory;
         }
-        public void UseMeds()
+        private void UseMeds()
         {
             foreach(var item in inventory.itemList)
             {
@@ -115,7 +111,7 @@ namespace DungeonCrawl.Actors.Characters
                 }
             }
         }
-        public void PickUp(Item item)
+        private void PickUp(Item item)
         {
             if(item is HealthPack)
             {
@@ -133,7 +129,7 @@ namespace DungeonCrawl.Actors.Characters
             item.Position = (99, 99);
             UserInterface.Singleton.SetText("", UserInterface.TextPosition.BottomRight);
         }
-        public void UseSwords()
+        private void UseSwords()
         {
             foreach (var item in inventory.itemList)
             {
