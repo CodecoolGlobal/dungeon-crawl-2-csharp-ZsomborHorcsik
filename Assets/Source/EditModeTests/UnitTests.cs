@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DungeonCrawl.Actors;
 using DungeonCrawl.Actors.Characters;
+using DungeonCrawl.Actors.Items;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -12,24 +13,46 @@ public class UnitTests
     [Test]
     public void Player_PlayerTakesDamage()
     {
-        Player player = new Player();
+        Player player = new GameObject().AddComponent<Player>();
         player.ApplyDamage(20);
         Assert.AreEqual(80, player.Health);
     }
-
+    [Test]
     public void Player_PlayerCanDealDamage()
     {
-        Player player = new Player();
-        Skeleton skeleton = new Skeleton();
+        Player player = new GameObject().AddComponent<Player>();
+        Skeleton skeleton = new GameObject().AddComponent<Skeleton>();
         skeleton.ApplyDamage(player.Damage);
         Assert.IsTrue(skeleton.Health == 10);
     }
-
+    [Test]
     public void Skeleton_SkeletonTakesDamage()
     {
-        Skeleton skeleton = new Skeleton();
+        Skeleton skeleton = new GameObject().AddComponent<Skeleton>();
         skeleton.ApplyDamage(20);
-        Assert.AreEqual(80, skeleton.Health);
+        Assert.AreEqual(20, skeleton.Health);
+    }
+    [Test]
+    public void Inventory_InventoryCanTakeItems()
+    {
+        Inventory inventory = new Inventory();
+        inventory.AddItem(new Sword());
+        int expected = 1;
+        int result = inventory.itemList.Count;
+        Assert.AreEqual(expected, result);
+    }
+    [Test]
+    public void Inventory_InventoryCanRemoveItem()
+    {
+        Inventory inventory = new Inventory();
+        Sword sword = new Sword();
+        Key key = new Key();
+        inventory.AddItem(sword);
+        inventory.AddItem(key);
+        inventory.RemoveItem(key);
+        int expected = 1;
+        int result = inventory.itemList.Count;
+        Assert.AreEqual(result, expected);
     }
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
