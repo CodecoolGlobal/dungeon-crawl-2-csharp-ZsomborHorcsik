@@ -61,6 +61,44 @@ namespace mapgeneratortest
             return stringArray;
         }
 
+        private static char[,] CellularAutomata(char[,] map)
+        {
+            char[,] orderedMap = new char[MapHeight, MapWidth];
+            for (int i = 0; i < MapHeight; ++i)
+            {
+                for (int j = 0; j < MapWidth; ++j)
+                {
+                    int wallCount = 0;
+                    for (int k = -1; k < 2; ++k)
+                    {
+                        for (int l = -1; l < 2; ++l)
+                        {
+                            if (j + k > 0 && j + k < MapWidth && i + l > 0 && i + l < MapHeight)
+                            {
+                                if (map[i + l, j + k] == WallChar && k != 0 && l != 0)
+                                {
+                                    ++wallCount;
+                                }
+                            }
+                            else
+                            {
+                                ++wallCount;
+                            }
+                        }
+                    }
+                    if (wallCount >= CATreshold)
+                    {
+                        orderedMap[i, j] = WallChar;
+                    }
+                    else
+                    {
+                        orderedMap[i, j] = FloorChar;
+                    }
+                }
+            }
+            return orderedMap;
+        }
+
         public static string[] GenerateMap()
         {
             char[,] map = GenerateNoise();
