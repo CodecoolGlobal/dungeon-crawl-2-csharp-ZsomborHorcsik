@@ -19,5 +19,28 @@ namespace mapgeneratortest
         private static int CATreshold = 3;
         private static int CACycle = 15;
         private static int SpawnProbability = 5;
+
+        private static char[,] GenerateNoise()
+        {
+            char[,] noise = new char[MapHeight, MapWidth];
+            for (int i = 0; i < MapHeight; ++i)
+            {
+                for (int j = 0; j < MapWidth; ++j)
+                {
+                    int randomInt = rnd.Next(1, 100);
+                    if (randomInt <= noisePercent)
+                    {
+                        noise[i, j] = WallChar;
+                    }
+                    else
+                    {
+                        noise[i, j] = FloorChar;
+                    }
+                }
+            }
+            return noise;
+        }
+
+
     }
 }
