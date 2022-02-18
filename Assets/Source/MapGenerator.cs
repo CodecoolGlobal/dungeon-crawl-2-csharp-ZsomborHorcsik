@@ -7,7 +7,7 @@ namespace mapgeneratortest
     {
         private static int MapWidth { get; set; } = 200;
         private static int MapHeight { get; set; } = 80;
-        private static char WallChar = '■';
+        private static char WallChar = '#';
         private static char FloorChar = '.';
         private static char PlayerChar = 'p';
         private static char SkeletonChar = 's';
@@ -150,6 +150,74 @@ namespace mapgeneratortest
             //map = Refinery(map);
             map = PopulateMap(map);
             return ToStringArray(map);
+        }
+
+        private static void displayMap(char[,] map)
+        {
+            for (int i = 0; i < MapHeight; ++i)
+            {
+                Console.WriteLine(ToStringArray(map)[i]);
+            }
+            Console.ReadLine();
+        }
+
+        private static char[,] PopulateMap(char[,] map)
+        {
+            int[] xOff = { 1, 1, 0, -1, -1, -1, 0, 1 };
+            int[] yOff = { 0, 1, 1, 1, 0, -1, -1, -1 };
+            bool playerPlaced = false;
+            for (int i = 0; i < MapHeight; ++i)
+            {
+                for (int j = 0; j < MapWidth; ++j)
+                {
+                    if (map[i, j] == FloorChar)
+                    {
+                        int area = 0;
+                        List<int> excludedDir = new List<int>(8);
+                        for (int dis = 0; dis < RoomArea; ++dis)
+                        {
+                            for (int dir = 0; dir < 8; ++dir)
+                            {
+                                if ((i + xOff[dir] * dis) > 0 && (i + xOff[dir] * dis) < MapHeight && (j + yOff[dir] * dis) > 0 && (j + yOff[dir] * dis) < MapWidth)
+                                {
+                                    if (map[i + xOff[dir] * dis, j + yOff[dir] * dis] == FloorChar && !excludedDir.Contains(dir))
+                                    {
+                                        ++area;
+                                    }
+                                    else
+                                    {
+                                        excludedDir.Add(dir);
+                                    }
+                                }
+                                else
+                                {
+                                    excludedDir.Add(dir);
+                                }
+                            }
+                        }
+                        if (area >= 70 && rnd.Next(0, 100) < SpawnProbability)
+                        {
+                            if (!playerPlaced)
+                            {
+                                map[i, j] = PlayerChar;
+                                playerPlaced = true;
+                            }
+                            else
+                            {
+                                if (rnd.Next(0, 100) < 70)
+                                {
+                                    map[i, j] = SkeletonChar;
+                                }
+                                else
+                                {
+                                    map[i, j] = HpChar;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return map;
         }
     }
 }
