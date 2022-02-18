@@ -41,6 +41,24 @@ namespace mapgeneratortest
             return noise;
         }
 
+        private static bool validate(int v, int h)
+        {
+            return v >= 0 && v < h;
+        }
 
+        private static string[] ToStringArray(char[,] map)
+        {
+            string[] stringArray = new string[MapHeight];
+            for (int i = 0; i < MapHeight; ++i)
+            {
+                string line = string.Empty;
+                for (int j = 0; j < MapWidth; ++j)
+                {
+                    line += map[i, j];
+                }
+                stringArray[i] = line;
+            }
+            return stringArray;
+        }
     }
 }
