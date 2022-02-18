@@ -169,13 +169,5 @@ public class UnitTests
         int result = player.inventory.itemList.Count;
         Assert.AreEqual(expected, result);
     }
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator UnitTestsWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
 }
+

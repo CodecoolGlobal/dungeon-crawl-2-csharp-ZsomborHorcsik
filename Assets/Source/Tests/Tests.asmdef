@@ -1,10 +1,10 @@
 {
-    "name": "EditModeTests",
+    "name": "Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "DungeonCrawlAssembly"
+        "Dungeon-Assembly"
     ],
     "includePlatforms": [
         "Editor"

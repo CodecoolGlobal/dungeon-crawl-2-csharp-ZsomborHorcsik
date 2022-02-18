@@ -39,10 +39,7 @@ namespace DungeonCrawl
         {
             lastSaveDate = DateTime.Now.ToString("dddd, dd MMMM yyyy");
             string filePath = String.Format(@"C:\Users\roola\Desktop\Github\dungeon-crawl-2-csharp-ZsomborHorcsik\Assets\Source\dungeoncrawl-{0:d}.txt", DateTime.Now.ToString("dddd, dd MMMM yyyy"));
-            string jsonOutput = JsonConvert.SerializeObject(gameSave, Formatting.Indented, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
+            string jsonOutput = JsonConvert.SerializeObject(gameSave, Formatting.Indented);
             File.WriteAllText(filePath, jsonOutput);
         }
         public static GameState LoadGame()

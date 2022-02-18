@@ -1,0 +1,13 @@
+{
+  "PlayerHealth": 60,
+  "PlayerDamage": 40,
+  "SavedInventory": {
+    "Keys": 0,
+    "Swords": 0,
+    "Meds": 0
+  },
+  "SavedPosition": {
+    "Item1": 11,
+    "Item2": -4
+  }
+}
