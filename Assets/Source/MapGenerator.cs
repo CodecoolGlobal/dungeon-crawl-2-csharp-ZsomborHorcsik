@@ -60,5 +60,17 @@ namespace mapgeneratortest
             }
             return stringArray;
         }
+
+        public static string[] GenerateMap()
+        {
+            char[,] map = GenerateNoise();
+            for (int i = 0; i < CACycle; ++i)
+            {
+                map = CellularAutomata(map);
+            }
+            //map = Refinery(map);
+            map = PopulateMap(map);
+            return ToStringArray(map);
+        }
     }
 }
