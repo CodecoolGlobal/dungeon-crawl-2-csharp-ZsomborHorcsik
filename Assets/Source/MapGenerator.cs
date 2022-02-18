@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace mapgeneratortest
 {
     class MapGenerator
     {
+        private static int mapCounter = 1;
         private static int MapWidth { get; set; } = 200;
         private static int MapHeight { get; set; } = 80;
         private static char WallChar = '#';
@@ -140,7 +142,7 @@ namespace mapgeneratortest
             return tempGrid;
         }
 
-        public static string[] GenerateMap()
+        private static string[] GenerateMap()
         {
             char[,] map = GenerateNoise();
             for (int i = 0; i < CACycle; ++i)
@@ -218,6 +220,13 @@ namespace mapgeneratortest
                 }
             }
             return map;
+        }
+
+        public static void WriteMapToFile()
+        {
+            mapCounter++;
+            string[] map = GenerateMap();
+            File.WriteAllLines($"map_{mapCounter}.txt", map);
         }
     }
 }
