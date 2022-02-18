@@ -99,6 +99,47 @@ namespace mapgeneratortest
             return orderedMap;
         }
 
+        private static char[,] Refinery(char[,] map)
+        {
+            char[,] tempGrid = map;
+            for (int i = 0; i < MapHeight; ++i)
+            {
+                for (int j = 0; j < MapWidth; ++j)
+                {
+                    int counter = 0;
+                    for (int k = -1; k < 2; ++k)
+                    {
+                        for (int l = -1; l < 2; ++l)
+                        {
+                            if (!(l == 0 && k == 0))
+                            {
+                                if (validate(i + k, MapHeight) && validate(j + l, MapWidth))
+                                {
+                                    if (map[i + k, j + l] == WallChar)
+                                    {
+                                        ++counter;
+                                    }
+                                }
+                                if (!validate(i + k, MapHeight) || !validate(j + l, MapWidth))
+                                {
+                                    ++counter;
+                                }
+                            }
+                        }
+                    }
+                    if (counter > CATreshold + 1)
+                    {
+                        tempGrid[i, j] = WallChar;
+                    }
+                    else
+                    {
+                        tempGrid[i, j] = FloorChar;
+                    }
+                }
+            }
+            return tempGrid;
+        }
+
         public static string[] GenerateMap()
         {
             char[,] map = GenerateNoise();
